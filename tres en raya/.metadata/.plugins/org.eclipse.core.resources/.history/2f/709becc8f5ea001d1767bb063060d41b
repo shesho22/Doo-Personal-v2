@@ -1,0 +1,62 @@
+package com.sergio;
+
+import java.util.Scanner;
+
+public class Partida {
+    private Tablero tablero;
+    private Jugador jugador1;
+    private Jugador jugador2;
+    private Jugador jugadorActual;
+
+    public Partida(Jugador jugador1, Jugador jugador2) {
+        tablero = new Tablero();
+        this.jugador1 = jugador1;
+        this.jugador2 = jugador2;
+        jugadorActual = jugador1;
+    }
+
+    public void jugar() {
+        Scanner scanner = new Scanner(System.in);
+        boolean terminada = false;
+        boolean empate = false;
+
+        System.out.println("¡Comienza la partida!");
+        tablero.mostrar();
+
+        while (!terminada) {
+            Movimiento movimiento;
+            if (jugadorActual.getTipo() == TipoJugador.HUMANO) {
+                movimiento = pedirMovimiento(scanner);
+            } else {
+                movimiento = jugadorActual.getTipo().obtenerMovimiento(tablero, jugadorActual.getSimbolo());
+            }
+
+            try {
+                tablero.realizarMovimiento(movimiento);
+                tablero.mostrar();
+                if (tablero.hayGanador()) {
+                    System.out.println("¡Ha ganado " + jugadorActual.getNombre() + "!");
+                    terminada = true;
+                } else if (tablero.estaLleno()) {
+                    System.out.println("¡Empate!");
+                    terminada = true;
+                    empate = true;
+                } else {
+                    cambiarJugador();
+                }
+            } catch (MovimientoInvalido e) {
+                System.out.println("La celda está ocupada, por favor elige otra.");
+            }
+        }
+
+        if (empate) {
+            System.out.println("La partida ha terminado en empate.");
+        } else {
+            System.out.println("La partida ha terminado. ¡Gracias por jugar!");
+        }
+    }
+
+    private Movimiento pedirMovimiento(Scanner scanner) {
+        while (true) {
+            System.out.println("Turn
+

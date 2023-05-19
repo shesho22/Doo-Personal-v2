@@ -1,0 +1,21 @@
+package com.sergio;
+
+public abstract class Jugador {
+    protected char simbolo;
+    protected String nombre;
+
+    public Jugador(char simbolo, String nombre) {
+        this.simbolo = simbolo;
+        this.nombre = nombre;
+    }
+
+    public char getSimbolo() {
+        return simbolo;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public abstract Movimiento jugar(Tablero tablero);
+}

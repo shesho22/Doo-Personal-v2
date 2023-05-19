@@ -1,0 +1,53 @@
+package com.sergio;
+
+public class TresEnRaya {
+    private Tablero tablero;
+    private Jugador jugador1;
+    private Jugador jugador2;
+    private Jugador jugadorActual;
+
+    public TresEnRaya() {
+        tablero = new Tablero();
+        jugador1 = new Jugador("Jugador 1", "X");
+        jugador2 = new Jugador("Jugador 2", "O");
+        jugadorActual = jugador1;
+    }
+
+    public void jugar() {
+        while (!tablero.hayGanador() && !tablero.estaLleno()) {
+            System.out.println("Turno de " + jugadorActual.getNombre());
+            tablero.mostrar();
+            int fila, columna;
+            if (jugadorActual.esMaquina()) {
+                // Si el jugador actual es la máquina, generamos una jugada aleatoria
+                Random random = new Random();
+                fila = random.nextInt(3);
+                columna = random.nextInt(3);
+            } else {
+                // Si no, pedimos al usuario que ingrese la jugada
+                Scanner scanner = new Scanner(System.in);
+                System.out.print("Ingrese la fila (1-3): ");
+                fila = scanner.nextInt() - 1;
+                System.out.print("Ingrese la columna (1-3): ");
+                columna = scanner.nextInt() - 1;
+            }
+            if (!tablero.esValida(fila, columna)) {
+                System.out.println("La celda ya está ocupada. Intente de nuevo.");
+            } else {
+                tablero.marcar(fila, columna, jugadorActual.getSimbolo());
+                jugadorActual = (jugadorActual == jugador1) ? jugador2 : jugador1;
+            }
+        }
+        tablero.mostrar();
+        if (tablero.hayGanador()) {
+            System.out.println("¡" + jugadorActual.getNombre() + " ha ganado!");
+        } else {
+            System.out.println("¡Es un empate!");
+        }
+    }
+
+    public static void main(String[] args) {
+        TresEnRaya juego = new TresEnRaya();
+        juego.jugar();
+    }
+}

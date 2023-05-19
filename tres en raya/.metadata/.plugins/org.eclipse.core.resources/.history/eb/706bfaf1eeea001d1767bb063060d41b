@@ -1,0 +1,157 @@
+package com.sergio;
+import java.util.Scanner;
+import java.util.Random;
+
+public class Jugar {
+	private char[][] tablero = new char[3][3];
+    private char jugadorActual;
+    private boolean gameOver;
+    private boolean maquina;
+    private char simboloJugador;
+    private char simboloMaquina;
+    private Random random = new Random();
+    private Scanner scanner = new Scanner(System.in);
+
+    public TresEnRaya(boolean maquina, char simboloJugador, char simboloMaquina) {
+        this.maquina = maquina;
+        this.simboloJugador = simboloJugador;
+        this.simboloMaquina = simboloMaquina;
+        reiniciar();
+    }
+
+    public void reiniciar() {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                tablero[i][j] = '-';
+            }
+        }
+        jugadorActual = simboloJugador;
+        gameOver = false;
+    }
+
+    public void cambiarJugador() {
+        jugadorActual = (jugadorActual == simboloJugador) ? simboloMaquina : simboloJugador;
+    }
+
+    public boolean estaOcupada(int fila, int columna) {
+        return tablero[fila][columna] != '-';
+    }
+
+    public boolean hayGanador() {
+        // Comprobar filas
+        for (int i = 0; i < 3; i++) {
+            if (tablero[i][0] == tablero[i][1] && tablero[i][0] == tablero[i][2] && tablero[i][0] != '-') {
+                return true;
+            }
+        }
+        // Comprobar columnas
+        for (int i = 0; i < 3; i++) {
+            if (tablero[0][i] == tablero[1][i] && tablero[0][i] == tablero[2][i] && tablero[0][i] != '-') {
+                return true;
+            }
+        }
+        // Comprobar diagonales
+        if (tablero[0][0] == tablero[1][1] && tablero[0][0] == tablero[2][2] && tablero[0][0] != '-') {
+            return true;
+        }
+        if (tablero[2][0] == tablero[1][1] && tablero[2][0] == tablero[0][2] && tablero[2][0] != '-') {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean hayEmpate() {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (tablero[i][j] == '-') {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public boolean realizarJugada(int fila, int columna) {
+        if (fila < 0 || fila > 2 || columna < 0 || columna > 2 || estaOcupada(fila, columna) || gameOver) {
+            return false;
+        }
+        tablero[fila][columna] = jugador();        		
+    } 		
+	    public void jugar() {
+            System.out.println("Bienvenido al juego de 3 en raya");
+
+            // Elegir si jugar contra la máquina o contra otro jugador
+            System.out.print("¿Desea jugar contra la máquina? (s/n): ");
+            String opcionMaquina = scanner.nextLine();
+            maquina = opcionMaquina.toLowerCase().equals("s");
+
+            // Elegir el símbolo del jugador
+            System.out.print("Seleccione su símbolo (X/O): ");
+            String opcionSimbolo = scanner.nextLine();
+            simboloJugador = opcionSimbolo.toUpperCase().charAt(0);
+            simboloMaquina = (simboloJugador == 'X') ? 'O' : 'X';
+
+            // Elegir quién inicia el juego
+            System.out.print("¿Desea iniciar el juego? (s/n): ");
+            String opcionInicia = scanner.nextLine();
+            if (opcionInicia.toLowerCase().equals("s")) {
+                jugadorActual = simboloJugador;
+            } else {
+                jugadorActual = simboloMaquina;
+                maquina = true;
+            }
+
+            // Mostrar el tablero vacío
+            mostrarTablero();
+
+            // Jugar mientras no haya ganador ni empate
+            while (!gameOver) {
+                if (maquina && jugadorActual == simboloMaquina) {
+                    // Turno de la máquina
+                    System.out.println("Turno de la máquina");
+                    int fila = random.nextInt(3);
+                    int columna = random.nextInt(3);
+                    while (estaOcupada(fila, columna)) {
+                        fila = random.nextInt(3);
+                        columna = random.nextInt(3);
+                    }
+                    realizarJugada(fila, columna);
+                    cambiarJugador();
+                } else {
+                    // Turno del jugador
+                    System.out.print("Ingrese la fila (0-2): ");
+                    int fila = scanner.nextInt();
+                    System.out.print("Ingrese la columna (0-2): ");
+                    int columna = scanner.nextInt();
+                    scanner.nextLine();
+                    if (realizarJugada(fila, columna)) {
+                        cambiarJugador();
+                    } else {
+                        System.out.println("La celda ya está ocupada, intente nuevamente");
+                    }
+                }
+
+                mostrarTablero();
+
+                if (hayGanador()) {
+                    System.out.println("¡Ha ganado el jugador " + jugadorActual + "!");
+                    gameOver = true;
+                } else if (hayEmpate()) {
+                    System.out.println("¡Empate!");
+                    gameOver = true;
+                }
+            }
+
+            // Preguntar si desea jugar de nuevo
+            System.out.print("¿Desea jugar de nuevo? (s/n): ");
+            String opcionReiniciar = scanner.nextLine();
+            if (opcionReiniciar.toLowerCase().equals("s")) {
+                reiniciar();
+                jugar();
+            } else {
+                System.out.println("¡Gracias por jugar!");
+            }
+        }
+    }
+
+}

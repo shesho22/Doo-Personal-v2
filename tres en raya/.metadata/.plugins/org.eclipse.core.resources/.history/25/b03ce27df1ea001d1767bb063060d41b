@@ -1,0 +1,28 @@
+package com.sergio;
+
+public void jugar() {
+	Scanner sc = new Scanner(System.in);
+
+    System.out.print("Ingrese el nombre del jugador 1: ");
+    String nombreJugador1 = sc.nextLine();
+    System.out.print("Ingrese el símbolo que desea usar (X o O): ");
+    char simboloJugador1 = sc.nextLine().charAt(0);
+    Jugador jugador1 = new Jugador(nombreJugador1, simboloJugador1);
+
+    System.out.print("Ingrese el nombre del jugador 2: ");
+    String nombreJugador2 = sc.nextLine();
+    char simboloJugador2 = simboloJugador1 == 'X' ? 'O' : 'X'; // El segundo jugador usa el símbolo que no usó el primer jugador
+    Jugador jugador2 = new Jugador(nombreJugador2, simboloJugador2);
+
+    System.out.println("Seleccione quien comienza el juego:");
+    System.out.println("1. " + nombreJugador1);
+    System.out.println("2. " + nombreJugador2);
+    int turno = Integer.parseInt(sc.nextLine());
+
+    Juego juego = new Juego(new Tablero(3, 3), jugador1, jugador2);
+    if (turno == 2) {
+        juego.setTurno(jugador2);
+    }
+
+    juego.jugar();
+}

@@ -1,0 +1,74 @@
+package com.sergio;
+
+public class Tablero {
+    private char[][] celdas;
+    private static final int TAMANO = 3;
+
+    public Tablero() {
+        celdas = new char[TAMANO][TAMANO];
+        reiniciar();
+    }
+
+    public void reiniciar() {
+        for (int i = 0; i < TAMANO; i++) {
+            for (int j = 0; j < TAMANO; j++) {
+                celdas[i][j] = '-';
+            }
+        }
+    }
+
+    public boolean esValida(int fila, int columna) {
+        if (fila < 0 || fila >= TAMANO || columna < 0 || columna >= TAMANO) {
+            return false;
+        }
+        return celdas[fila][columna] == '-';
+    }
+
+    public void marcar(int fila, int columna, char simbolo) {
+        celdas[fila][columna] = simbolo;
+    }
+
+    public boolean hayGanador() {
+        // Revisa filas
+        for (int i = 0; i < TAMANO; i++) {
+            if (celdas[i][0] != '-' && celdas[i][0] == celdas[i][1] && celdas[i][1] == celdas[i][2]) {
+                return true;
+            }
+        }
+        // Revisa columnas
+        for (int j = 0; j < TAMANO; j++) {
+            if (celdas[0][j] != '-' && celdas[0][j] == celdas[1][j] && celdas[1][j] == celdas[2][j]) {
+                return true;
+            }
+        }
+        // Revisa diagonales
+        if (celdas[0][0] != '-' && celdas[0][0] == celdas[1][1] && celdas[1][1] == celdas[2][2]) {
+            return true;
+        }
+        if (celdas[0][2] != '-' && celdas[0][2] == celdas[1][1] && celdas[1][1] == celdas[2][0]) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean estaLleno() {
+        for (int i = 0; i < TAMANO; i++) {
+            for (int j = 0; j < TAMANO; j++) {
+                if (celdas[i][j] == '-') {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public void mostrar() {
+        for (int i = 0; i < TAMANO; i++) {
+            for (int j = 0; j < TAMANO; j++) {
+                System.out.print(celdas[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+}
+

@@ -1,0 +1,24 @@
+package com.sergio;
+
+public class Jugador {
+    private String simbolo;
+    private boolean esMaquina;
+
+    public Jugador(String simbolo, boolean esMaquina) {
+        this.simbolo = simbolo;
+        this.esMaquina = esMaquina;
+    }
+
+    public String obtenerSimbolo() {
+        return simbolo;
+    }
+
+    public boolean esMaquina() {
+        return esMaquina;
+    }
+
+    public void jugar(Tablero tablero, int fila, int columna) {
+        tablero.marcar(fila, columna, simbolo);
+    }
+}
+

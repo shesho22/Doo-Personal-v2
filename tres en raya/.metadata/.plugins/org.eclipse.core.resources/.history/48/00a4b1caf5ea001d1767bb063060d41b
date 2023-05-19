@@ -1,0 +1,9 @@
+package com.sergio;
+
+public class MovimientoInvalido extends Movimiento {
+
+    public MovimientoInvalido(int fila, int columna) {
+        super(fila, columna, ' ');
+    }
+}
+

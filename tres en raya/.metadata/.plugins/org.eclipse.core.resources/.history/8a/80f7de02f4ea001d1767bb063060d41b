@@ -1,0 +1,90 @@
+package com.sergio;
+import java.util.Random;
+import java.util.Scanner;
+
+public class Juego {
+	   private char[][] tablero;
+	    private char jugadorActual;
+	    private char simboloJugador;
+	    private char simboloMaquina;
+	    private boolean maquina;
+	    private boolean gameOver;
+	    private Scanner scanner;
+	    private Random random;
+
+	    public Juego() {
+	        tablero = new char[3][3];
+	        jugadorActual = ' ';
+	        simboloJugador = ' ';
+	        simboloMaquina = ' ';
+	        maquina = false;
+	        gameOver = false;
+	        scanner = new Scanner(System.in);
+	        random = new Random();
+	    }
+
+	    public void mostrarTablero() {
+	        System.out.println("  0 1 2");
+	        for (int i = 0; i < 3; i++) {
+	            System.out.print(i + " ");
+	            for (int j = 0; j < 3; j++) {
+	                System.out.print(tablero[i][j] + " ");
+	            }
+	            System.out.println();
+	        }
+	    }
+
+	    public boolean estaOcupada(int fila, int columna) {
+	        return tablero[fila][columna] != ' ';
+	    }
+
+	    public boolean realizarJugada(int fila, int columna) {
+	        if (estaOcupada(fila, columna)) {
+	            return false;
+	        }
+	        tablero[fila][columna] = jugadorActual;
+	        return true;
+	    }
+
+	    public boolean hayGanador() {
+	        // Revisar filas
+	        for (int i = 0; i < 3; i++) {
+	            if (tablero[i][0] != ' ' && tablero[i][0] == tablero[i][1] && tablero[i][1] == tablero[i][2]) {
+	                return true;
+	            }
+	        }
+	        // Revisar columnas
+	        for (int i = 0; i < 3; i++) {
+	            if (tablero[0][i] != ' ' && tablero[0][i] == tablero[1][i] && tablero[1][i] == tablero[2][i]) {
+	                return true;
+	            }
+	        }
+	        // Revisar diagonales
+	        if (tablero[0][0] != ' ' && tablero[0][0] == tablero[1][1] && tablero[1][1] == tablero[2][2]) {
+	            return true;
+	        }
+	        if (tablero[2][0] != ' ' && tablero[2][0] == tablero[1][1] && tablero[1][1] == tablero[0][2]) {
+	            return true;
+	        }
+	        return false;
+	    }
+
+	    public boolean hayEmpate() {
+	        for (int i = 0; i < 3; i++) {
+	            for (int j = 0; j < 3; j++) {
+	                if (tablero[i][j] == ' ') {
+	                    return false;
+	                }
+	            }
+	        }
+	        return true;
+	    }
+
+	    public void cambiarJugador() {
+	        jugadorActual = (jugadorActual == simboloJugador) ? simboloMaquina : simboloJugador;
+	    }
+
+	    public void reiniciar() {
+	        tablero = new char[3][3];
+	        Jugador
+}

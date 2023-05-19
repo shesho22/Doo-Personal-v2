@@ -1,0 +1,84 @@
+package com.sergio;
+
+public class Tablero {
+	private char[][] tablero;
+    private int filas;
+    private int columnas;
+
+    public Tablero(int filas, int columnas) {
+        this.filas = filas;
+        this.columnas = columnas;
+        this.tablero = new char[filas][columnas];
+        for (int i = 0; i < filas; i++) {
+            for (int j = 0; j < columnas; j++) {
+                this.tablero[i][j] = '-';
+            }
+        }
+    }
+
+    public int getFilas() {
+        return filas;
+    }
+
+    public int getColumnas() {
+        return columnas;
+    }
+
+    public char getCasilla(int fila, int columna) {
+        return tablero[fila][columna];
+    }
+
+    public void setCasilla(int fila, int columna, char valor) {
+        tablero[fila][columna] = valor;
+    }
+
+    public void mostrarTablero() {
+        for (int i = 0; i < filas; i++) {
+            for (int j = 0; j < columnas; j++) {
+                System.out.print(tablero[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    public boolean casillaDisponible(int fila, int columna) {
+        return tablero[fila][columna] == '-';
+    }
+
+    public boolean tableroLleno() {
+        for (int i = 0; i < filas; i++) {
+            for (int j = 0; j < columnas; j++) {
+                if (tablero[i][j] == '-') {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public boolean hayTresEnRaya(char simbolo) {
+        // Revisar filas
+        for (int i = 0; i < filas; i++) {
+            if (tablero[i][0] == simbolo && tablero[i][1] == simbolo && tablero[i][2] == simbolo) {
+                return true;
+            }
+        }
+
+        // Revisar columnas
+        for (int j = 0; j < columnas; j++) {
+            if (tablero[0][j] == simbolo && tablero[1][j] == simbolo && tablero[2][j] == simbolo) {
+                return true;
+            }
+        }
+
+        // Revisar diagonales
+        if (tablero[0][0] == simbolo && tablero[1][1] == simbolo && tablero[2][2] == simbolo) {
+            return true;
+        }
+        if (tablero[0][2] == simbolo && tablero[1][1] == simbolo && tablero[2][0] == simbolo) {
+            return true;
+        }
+
+        return false;
+    }
+}

@@ -1,0 +1,50 @@
+
+f
+java:S1144‰"-Remove this unused private "terminar" method.(âÈµùÿÿÿÿ8¸ÆæĞş0H´RMAJORZ
+CODE_SMELL
+k	java:S106;"9Replace this use of System.out or System.err by a logger.(ØúÊ8¸ÆæĞş0H¶RMAJORZ
+CODE_SMELL
+p	java:S106="9Replace this use of System.out or System.err by a logger.(¾¥°íüÿÿÿÿ8¸ÆæĞş0H·RMAJORZ
+CODE_SMELL
+k	java:S1068"9Replace this use of System.out or System.err by a logger.(¤€áŠ8¥â˜Ğş0H¸RMAJORZ
+CODE_SMELL
+q	java:S106Š"9Replace this use of System.out or System.err by a logger.(é½Õ‘ÿÿÿÿÿ8Øì©Òş0H¹RMAJORZ
+CODE_SMELL
+p	java:S106C"9Replace this use of System.out or System.err by a logger.(ÎôŞ‰úÿÿÿÿ8¥â˜Ğş0HºRMAJORZ
+CODE_SMELL
+e
+java:S1659'"-Declare "jugadorInactivo" on a separate line.(ú®Ø¸úÿÿÿÿ8¸ÆæĞş0H»RMINORZ
+CODE_SMELL
+q	java:S106ƒ"9Replace this use of System.out or System.err by a logger.(–˜»ÿøÿÿÿÿ8Øì©Òş0H½RMAJORZ
+CODE_SMELL
+c
+java:S1144"+Remove this unused private "seguir" method.(ò¾ıÙüÿÿÿÿ8¸ÆæĞş0H¾RMAJORZ
+CODE_SMELL
+p	java:S106M"9Replace this use of System.out or System.err by a logger.(ÈÚ¢–ıÿÿÿÿ8¥â˜Ğş0HÀRMAJORZ
+CODE_SMELL
+t
+java:S1126n"AReplace this if-then-else statement by a single return statement.(Š¦³ 8¥â˜Ğş0HÁRMINORZ
+CODE_SMELL
+	java:S1356"YReduce the total number of break and continue statements in this loop to use at most one.(˜ïˆÿÿÿÿÿ8¸ÆæĞş0HÂRMINORZ
+CODE_SMELL
+k	java:S106"9Replace this use of System.out or System.err by a logger.(¯ë£Ğ8¸ÆæĞş0HÅRMAJORZ
+CODE_SMELL
+p	java:S106"9Replace this use of System.out or System.err by a logger.(›ªüñúÿÿÿÿ8¥â˜Ğş0HÆRMAJORZ
+CODE_SMELL
+k	java:S106J"9Replace this use of System.out or System.err by a logger.(†á¸É8¸ÆæĞş0HÇRMAJORZ
+CODE_SMELL
+k	java:S106"9Replace this use of System.out or System.err by a logger.(®Œ¤Ø8¸ÆæĞş0HÈRMAJORZ
+CODE_SMELL
+p	java:S106""9Replace this use of System.out or System.err by a logger.(‹ó“¨şÿÿÿÿ8¸ÆæĞş0HÉRMAJORZ
+CODE_SMELL
+ˆ
+java:S3776"RRefactor this method to reduce its Cognitive Complexity from 19 to the 15 allowed.(Çµí‘8¸ÆæĞş0HÊRCRITICALZ
+CODE_SMELL
+j	java:S106"9Replace this use of System.out or System.err by a logger.(„­³B8¸ÆæĞş0HØRMAJORZ
+CODE_SMELL
+p	java:S106"9Replace this use of System.out or System.err by a logger.(¶ş±„úÿÿÿÿ8¸ÆæĞş0HÙRMAJORZ
+CODE_SMELL
+q	java:S106€"9Replace this use of System.out or System.err by a logger.(¯ß¦µÿÿÿÿÿ8Øì©Òş0HÚRMAJORZ
+CODE_SMELL
+p	java:S106"9Replace this use of System.out or System.err by a logger.(»¦Ìüÿÿÿÿ8¥â˜Ğş0HÛRMAJORZ
+CODE_SMELL

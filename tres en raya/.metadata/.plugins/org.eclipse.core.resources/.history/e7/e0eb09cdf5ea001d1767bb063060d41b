@@ -1,0 +1,26 @@
+package com.sergio;
+
+import java.util.Scanner;
+
+public class JugadorHumano extends Jugador {
+
+    public JugadorHumano(char simbolo, String nombre) {
+        super(simbolo, nombre);
+    }
+
+    public Movimiento jugar(Tablero tablero) {
+        Scanner scanner = new Scanner(System.in);
+        int fila, columna;
+        do {
+            System.out.print(nombre + ", ingrese la fila (1-3): ");
+            fila = scanner.nextInt() - 1;
+            System.out.print(nombre + ", ingrese la columna (1-3): ");
+            columna = scanner.nextInt() - 1;
+            if (!tablero.esValida(fila, columna)) {
+                System.out.println("La celda seleccionada no es válida.");
+            }
+        } while (!tablero.esValida(fila, columna));
+        return new Movimiento(fila, columna, simbolo);
+    }
+}
+

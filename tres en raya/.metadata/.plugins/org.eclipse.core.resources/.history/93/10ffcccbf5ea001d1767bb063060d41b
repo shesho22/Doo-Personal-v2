@@ -1,0 +1,26 @@
+package com.sergio;
+
+public class Movimiento {
+    private int fila;
+    private int columna;
+    private char simbolo;
+
+    public Movimiento(int fila, int columna, char simbolo) {
+        this.fila = fila;
+        this.columna = columna;
+        this.simbolo = simbolo;
+    }
+
+    public int getFila() {
+        return fila;
+    }
+
+    public int getColumna() {
+        return columna;
+    }
+
+    public char getSimbolo() {
+        return simbolo;
+    }
+}
+

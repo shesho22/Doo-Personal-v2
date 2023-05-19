@@ -1,0 +1,71 @@
+package com.sergio;
+import java.util.Scanner;
+
+public class TresEnRaya {
+    private Tablero tablero;
+    private Jugador jugador1;
+    private Jugador jugador2;
+    private Jugador turnoActual;
+    private boolean contraMaquina;
+    private Scanner scanner;
+
+    public TresEnRaya() {
+        scanner = new Scanner(System.in);
+        tablero = new Tablero();
+        contraMaquina = false;
+
+        System.out.println("Bienvenido al juego de 3 en raya!");
+
+        System.out.print("Ingrese el nombre del jugador 1: ");
+        String nombreJugador1 = scanner.nextLine();
+        System.out.print("Ingrese el símbolo que desea usar (X o O): ");
+        char simboloJugador1 = scanner.nextLine().charAt(0);
+        jugador1 = new Jugador(nombreJugador1, simboloJugador1);
+
+        System.out.print("¿Desea jugar contra la máquina? (s/n): ");
+        String opcion = scanner.nextLine();
+        if (opcion.equalsIgnoreCase("s")) {
+            contraMaquina = true;
+            jugador2 = new Jugador("Máquina", simboloJugador1 == 'X' ? 'O' : 'X');
+        } else {
+            System.out.print("Ingrese el nombre del jugador 2: ");
+            String nombreJugador2 = scanner.nextLine();
+            char simboloJugador2 = simboloJugador1 == 'X' ? 'O' : 'X';
+            jugador2 = new Jugador(nombreJugador2, simboloJugador2);
+        }
+
+        System.out.println("Seleccione quien comienza el juego:");
+        System.out.println("1. " + jugador1.getNombre());
+        System.out.println("2. " + jugador2.getNombre());
+        int turno = Integer.parseInt(scanner.nextLine());
+
+        if (turno == 2) {
+            turnoActual = jugador2;
+        } else {
+            turnoActual = jugador1;
+        }
+    }
+
+    public void jugar() {
+        boolean juegoTerminado = false;
+        tablero.dibujar();
+
+        while (!juegoTerminado) {
+            System.out.println(turnoActual.getNombre() + ", es tu turno.");
+            int fila, columna;
+
+            if (turnoActual == jugador1 || !contraMaquina) {
+                System.out.print("Ingresa la fila: ");
+                fila = Integer.parseInt(scanner.nextLine()) - 1;
+
+                System.out.print("Ingresa la columna: ");
+                columna = Integer.parseInt(scanner.nextLine()) - 1;
+            } else {
+                // La máquina elige una celda aleatoria
+                fila = (int) (Math.random() * 3);
+                columna = (int) (Math.random() * 3);
+            }
+
+            if (!tablero.ocuparCelda(fila, columna, turnoActual.getSimbolo())) {
+                System.out.println("La celda seleccionada está ocupada. Intenta nuev
+

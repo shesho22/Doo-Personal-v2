@@ -1,0 +1,25 @@
+package com.sergio;
+
+public class Jugador {
+    private String nombre;
+    private char simbolo;
+    private TipoJugador tipo;
+
+    public Jugador(String nombre, char simbolo, TipoJugador tipo) {
+        this.nombre = nombre;
+        this.simbolo = simbolo;
+        this.tipo = tipo;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public char getSimbolo() {
+        return simbolo;
+    }
+
+    public TipoJugador getTipo() {
+        return tipo;
+    }
+}

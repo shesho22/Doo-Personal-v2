@@ -1,0 +1,40 @@
+package com.sergio;
+
+public class Tablero {
+    private String[][] matriz;
+
+    public Tablero() {
+        matriz = new String[3][3];
+        limpiar();
+    }
+
+    public void mostrar() {
+        System.out.println("-------------");
+        for (int i = 0; i < 3; i++) {
+            System.out.print("| ");
+            for (int j = 0; j < 3; j++) {
+                System.out.print(matriz[i][j] + " | ");
+            }
+            System.out.println();
+            System.out.println("-------------");
+        }
+    }
+
+    public boolean estaVacia(int fila, int columna) {
+        return matriz[fila][columna].equals(" ");
+    }
+
+    public void marcar(int fila, int columna, String simbolo) {
+        matriz[fila][columna] = simbolo;
+    }
+
+    public void limpiar() {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                matriz[i][j] = " ";
+            }
+        }
+    }
+}
+
+
