@@ -38,6 +38,15 @@ public static final String REGISTER_EXCEPTION_USER_MESSAGE_STRING="Se ha present
 public static final String REGISTER_EXCEPTION_TECHNICAL_MESSAGE_STRING="Se ha presentado una excepcion no conocida al momneto de registrar el nuevo EstadoTipoRelacionInstitucion. porfavor valide la traza completa de la exception presentada";
 
 	}
+
+
+
+
+
+	public static void add(String string) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 }

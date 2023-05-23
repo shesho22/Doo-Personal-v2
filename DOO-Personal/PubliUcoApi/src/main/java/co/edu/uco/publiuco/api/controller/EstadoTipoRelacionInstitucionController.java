@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import co.edu.uco.publiuco.api.controller.response.Response;
+import co.edu.uco.publiuco.crosscutting.utils.Messages;
 import co.edu.uco.publiuco.dto.EstadoTipoRelacionInstitucionDTO;
 
 @RestController
@@ -20,19 +24,24 @@ import co.edu.uco.publiuco.dto.EstadoTipoRelacionInstitucionDTO;
 public final class EstadoTipoRelacionInstitucionController {
 
 	@GetMapping("/dummy")
-
 	public EstadoTipoRelacionInstitucionDTO dummy() {
 		return EstadoTipoRelacionInstitucionDTO.crete();
 	}
 
 	@GetMapping
-	public List<EstadoTipoRelacionInstitucionDTO> list(@RequestParam EstadoTipoRelacionInstitucionDTO dto) {
+	public ResponseEntity<Response<EstadoTipoRelacionInstitucionDTO>> list(@RequestParam EstadoTipoRelacionInstitucionDTO dto) {
 		List<EstadoTipoRelacionInstitucionDTO> list = new ArrayList<>();
 		list.add(EstadoTipoRelacionInstitucionDTO.crete());
 		list.add(EstadoTipoRelacionInstitucionDTO.crete());
 		list.add(EstadoTipoRelacionInstitucionDTO.crete());
 		list.add(EstadoTipoRelacionInstitucionDTO.crete());
-		return list;
+		
+		List<String> messages = new ArrayList<>();
+		Messages.add("Estados de tipos de relacion institucion consuiltados exitosamente");
+		
+		Response<EstadoTipoRelacionInstitucionDTO> response = new Response<>(list,messages);
+		
+		return new ResponseEntity<Response<EstadoTipoRelacionInstitucionDTO>>(response,HttpStatus.OK);
 	}
 	
 	@GetMapping("/{id}")
