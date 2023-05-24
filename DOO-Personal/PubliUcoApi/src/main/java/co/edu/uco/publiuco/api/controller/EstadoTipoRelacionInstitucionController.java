@@ -23,6 +23,18 @@ import co.edu.uco.publiuco.dto.EstadoTipoRelacionInstitucionDTO;
 @RequestMapping("publiuco/api/v1/estadotiporelacioninstitucion")
 public final class EstadoTipoRelacionInstitucionController {
 
+	private Logger log=LoggerFactory.getLooger(EstadoTipoRelacionInstitucionController.class)
+
+	private EstadoTipoRelacionInstitucionFacade facade;
+
+	private EstadoTipoRelacionInstitucionController(){
+		try{
+			facade new EstadoTipoRelacionInstitucionFacadeImpl();
+		}catch(final PubliUcoApiException exception){
+			log.error(exception.getType().toString(.concat("-").concat(exception.getTechnicalMessage(""))))
+		}
+	}
+
 	@GetMapping("/dummy")
 	public EstadoTipoRelacionInstitucionDTO dummy() {
 		return EstadoTipoRelacionInstitucionDTO.crete();
