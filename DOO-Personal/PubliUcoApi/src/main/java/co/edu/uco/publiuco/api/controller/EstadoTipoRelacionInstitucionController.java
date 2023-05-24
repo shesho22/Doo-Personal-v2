@@ -65,6 +65,14 @@ public final class EstadoTipoRelacionInstitucionController {
 	
 	@PostMapping
 	public EstadoTipoRelacionInstitucionDTO create(@RequestParam EstadoTipoRelacionInstitucionDTO dto) {
+		var statusCode= HttpStatus.OK;
+		try{
+			var result=RegistrarEstadoTipoRelacionInstitucionValidaton.validate(dto)
+		}catch(final PubliUcoException exception){
+			statusCode=HttpStatus.
+		}catch(final Exception exception){
+			statusCode=HttpStatus.
+		}
 		return dto;
 	}
 	

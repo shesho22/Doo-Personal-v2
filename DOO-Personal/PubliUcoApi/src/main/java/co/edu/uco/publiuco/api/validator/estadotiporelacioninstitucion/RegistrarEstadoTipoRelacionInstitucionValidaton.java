@@ -16,8 +16,15 @@ public final class RegistrarEstadoTipoRelacionInstitucionValidaton implements Va
 
 	@Override
 	public final Result execute(final EstadoTipoRelacionInstitucionDTO data) {
-		// TODO Auto-generated method stub
-		return null;
+		var result=Result.create();
+
+		if(UtilObject.isNull(data)){
+			result.addMessage("No es posible registrar un nuevo estado tipo relacion institucion con los datos vacios...")
+		}else{
+		result.addMessage(NombreValidation.validate(data.getNombre()).getMessages());
+		result.addMessage(DescripcionValidation.validate(data.getDescripcion()).getMessages())
+		}
+		return result;
 	}
 
 } 
