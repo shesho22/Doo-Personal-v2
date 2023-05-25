@@ -4,6 +4,9 @@ import java.util.UUID;
 
 import co.edu.uco.publiuco.api.validator.Result;
 import co.edu.uco.publiuco.api.validator.Validation;
+import co.edu.uco.publiuco.crosscutting.utils.UtilObject;
+import co.edu.uco.publiuco.crosscutting.utils.UtilText;
+import co.edu.uco.publiuco.crosscutting.utils.UtilUUID;
 
 public class NombreValidation implements Validation<String>{
 
@@ -16,8 +19,23 @@ public class NombreValidation implements Validation<String>{
 	}
 	
 	@Override
-	public Result execute(String data) {
-		// TODO Auto-generated method stub
-		return null;
+	public final Result execute(String data) {
+		var result=Result.create();
+		
+		if(UtilText.getUtilText().isEmpty(data)) {
+			result.addMessage("No es posible continuar con el nombre del estado del tipo relacion institucion vacio...");
+		}
+		else {
+			if(true) //validar longitud de la cadena entre 1 y 30
+			{
+				result.addMessage("El nombre del estado del tipo relacion institucion no debe ser menor a 1 ni mayor a 30...");
+			}
+			if(true) //validar formato solo letras y espacos
+			{
+				result.addMessage("El nombre del estado del tipo relacion institucion solo puede contener letras y espacios...");
+
+			}
+		}
+		return result;
 	}
 }

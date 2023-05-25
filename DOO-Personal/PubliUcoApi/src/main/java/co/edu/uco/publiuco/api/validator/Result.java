@@ -28,6 +28,10 @@ public class Result {
 		
 	}
 
+	public final void addMessages(final List<String>messages) {
+		getMessages().addAll(UtilObject.getDefault(messages, new ArrayList<>()));
+	}
+	
 	public final boolean isValid() {
 		return messages.isEmpty();
 	}

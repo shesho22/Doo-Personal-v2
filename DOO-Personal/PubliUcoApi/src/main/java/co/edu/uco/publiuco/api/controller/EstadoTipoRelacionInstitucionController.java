@@ -16,6 +16,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.edu.uco.publiuco.api.controller.response.Response;
+import co.edu.uco.publiuco.api.validator.estadotiporelacioninstitucion.RegistrarEstadoTipoRelacionInstitucionValidaton;
+import co.edu.uco.publiuco.business.facade.impl.EstadoTipoRelacionInstitucionFacadeImpl;
+import co.edu.uco.publiuco.business.facade.EstadoTipoRelacionInstitucionFacade;
+import co.edu.uco.publiuco.crosscutting.exception.PubliUcoApiException;
+import co.edu.uco.publiuco.crosscutting.exception.PubliUcoException;
 import co.edu.uco.publiuco.crosscutting.utils.Messages;
 import co.edu.uco.publiuco.dto.EstadoTipoRelacionInstitucionDTO;
 
@@ -23,16 +28,10 @@ import co.edu.uco.publiuco.dto.EstadoTipoRelacionInstitucionDTO;
 @RequestMapping("publiuco/api/v1/estadotiporelacioninstitucion")
 public final class EstadoTipoRelacionInstitucionController {
 
-	private Logger log=LoggerFactory.getLooger(EstadoTipoRelacionInstitucionController.class)
-
 	private EstadoTipoRelacionInstitucionFacade facade;
 
 	private EstadoTipoRelacionInstitucionController(){
-		try{
-			facade new EstadoTipoRelacionInstitucionFacadeImpl();
-		}catch(final PubliUcoApiException exception){
-			log.error(exception.getType().toString(.concat("-").concat(exception.getTechnicalMessage(""))))
-		}
+		facade = new EstadoTipoRelacionInstitucionFacadeImpl();
 	}
 
 	@GetMapping("/dummy")
@@ -47,13 +46,14 @@ public final class EstadoTipoRelacionInstitucionController {
 		list.add(EstadoTipoRelacionInstitucionDTO.crete());
 		list.add(EstadoTipoRelacionInstitucionDTO.crete());
 		list.add(EstadoTipoRelacionInstitucionDTO.crete());
+		list.add(EstadoTipoRelacionInstitucionDTO.crete());
 		
 		List<String> messages = new ArrayList<>();
 		Messages.add("Estados de tipos de relacion institucion consuiltados exitosamente");
 		
 		Response<EstadoTipoRelacionInstitucionDTO> response = new Response<>(list,messages);
 		
-		return new ResponseEntity<Response<EstadoTipoRelacionInstitucionDTO>>(response,HttpStatus.OK);
+		return new ResponseEntity<>(response,HttpStatus.OK);
 	}
 	
 	@GetMapping("/{id}")
@@ -64,16 +64,33 @@ public final class EstadoTipoRelacionInstitucionController {
 	}
 	
 	@PostMapping
-	public EstadoTipoRelacionInstitucionDTO create(@RequestParam EstadoTipoRelacionInstitucionDTO dto) {
-		var statusCode= HttpStatus.OK;
-		try{
-			var result=RegistrarEstadoTipoRelacionInstitucionValidaton.validate(dto)
-		}catch(final PubliUcoException exception){
-			statusCode=HttpStatus.
-		}catch(final Exception exception){
-			statusCode=HttpStatus.
+	public ResponseEntity<Response<EstadoTipoRelacionInstitucionDTO>> create(@RequestParam EstadoTipoRelacionInstitucionDTO dto) {
+		
+		var statusCode=HttpStatus.OK;
+		var response= new Response<EstadoTipoRelacionInstitucionDTO>();
+		try {
+			var result= RegistrarEstadoTipoRelacionInstitucionValidaton.validate(dto);
+			
+			if(result.getMessages().isEmpty()) {
+				facade.register(dto);
+				response.getMessages().add("El nuevo estado tipo relacion institucion se ha registrado de forma satisfactoria");
+			}else {
+				statusCode=HttpStatus.BAD_REQUEST;
+				response.setMessages(result.getMessages());
+			}
+		}catch(final PubliUcoException exception) {
+			statusCode=HttpStatus.BAD_REQUEST;
+			response.getMessages().add(exception.getUserMessage());
+			System.err.println(exception.getTechnicalMessage());
+			System.err.println(exception.getType());
+			exception.printStackTrace();
+		}catch(final Exception exception) {
+			statusCode=HttpStatus.INTERNAL_SERVER_ERROR;
+			response.getMessages().add("Se ha presentado un problema inesperado. Por favor intentar de nuevo y si el problema persiste, contacte al administrador de la aplicacion...");
+			System.err.println(exception.getMessage());
+			exception.printStackTrace();
 		}
-		return dto;
+		return new ResponseEntity<>(response,statusCode);
 	}
 	
 	@PutMapping("/{id}")
